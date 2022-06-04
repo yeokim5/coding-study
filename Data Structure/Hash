@@ -1,0 +1,132 @@
+##### BASIC HASH #####
+hash_table = list([i for i in range(10)]) #list comprehension 문법
+print(hash_table)
+
+#해쉬합수
+def hash_func(key):
+    return key % 5
+
+data1 = 'A'
+data2 = 'B'
+data3 = 'C'
+# ord() ascii code
+def storage_data(data, value):
+    key = ord(data[0])
+    hash_address = hash_func(key)
+    hash_table[hash_address] = value
+
+storage_data('A','11111')
+storage_data('B','22222')
+storage_data('C','33333')
+
+def get_data(data):
+    key = ord(data[0])
+    hash_address = hash_func(key)
+    return hash_table[hash_address]
+
+print(get_data('A'))
+
+#########################
+
+# create hash table
+hash_table = list([0] for i in range(8))
+# getkey&hash function
+def get_key(data):
+    return hash(data)
+def hash_function(key):
+    return key % 8
+# save function 
+def save_data(data,value):
+    hash_address = hash_function(get_key(data))
+    hash_table[hash_address] = value
+# read function
+def read_data(data):
+    hash_address = hash_function(get_key(data))
+    return hash_table[hash_address]
+
+save_data('Dave',"1111")
+save_data('Andy',"2222")
+print(read_data('Dave'))
+print(hash_table)
+
+
+
+
+##### HASH Chaining #####
+# create hash table
+hash_table = list([0] for i in range(8))
+# getkey&hash function
+def get_key(data):
+    return hash(data)
+def hash_function(key):
+    return key % 8
+# save function 
+def save_data(data,value):
+    index_key = get_key(data)
+    hash_address = hash_function(index_key)
+    if hash_table[hash_address] != 0:
+        for index in range(len(hash_table[hash_address])):
+            if hash_table[hash_address][index][0] == index_key:
+                hash_table[hash_address][index][1] == value:
+                return hash_table[hash_address].append([index_key, value])
+            else:
+                hash_table[hash_address] = [[index_key,value]]
+# read function
+def read_data(data):
+    index_key = get_key(data)
+    hash_address = hash_function(get_key(data))
+    
+    if hash_table[hash_address] != 0:
+        for index in range(len(hash_table[hash_address])):
+            if hash_table[hash_address][index][0] == index_key:
+                return hash_table[hash_address][index][1]
+            else:
+                return None
+print(hash('Dave') % 8)
+print(hash('Dd') % 8)
+print(hash('Da') % 8)
+save_data('Dave', '1231')
+save_data('Dd', '3333')
+read_data('Dd')
+
+
+##### HASH Linear Probing #####
+# create hash table
+hash_table = list([0] for i in range(8))
+# getkey&hash function
+def get_key(data):
+    return hash(data)
+def hash_function(key):
+    return key % 8
+# save function 
+def save_data(data,value):
+    index_key = get_key(data)
+    hash_address = hash_function(index_key)
+    if hash_table[hash_address] != 0:
+        for index in range(hash_address, len(hash_table)):
+            if hash_table[index] == 0:
+             hash_table[index] = [index_key, value]
+            elif hash_table[index][0] == index.key: hash_table[index][1] = value 
+            else:
+                 hash_table[hash_address] = [index_key, value]
+             
+
+# read function
+def read_data(data):
+    index_key = get_key(data)
+    hash_address = hash_function(index_key)
+    if hash_table[hash_address] != 0:
+        for index in range(hash_address, len(hash_table)):
+            if hash_table[index] == 0:
+                return None
+            elif hash_table[index][0] == index_key:
+                return hash_table[index][1]
+    else:
+        return None
+        
+print(hash('Dave') % 8)
+print(hash('Dd') % 8)
+print(hash('Da') % 8)
+save_data('Dave', '1231')
+save_data('Dd', '3333')
+read_data('Dd')        
